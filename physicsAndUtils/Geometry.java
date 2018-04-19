@@ -21,9 +21,10 @@ public class Geometry {
         sprite.setOrigin(0,0);
         sprite.setPosition(X1,Y1);
         sprite.setRotation(angleToRot);
+        if(length==0)
+            length=scaleY;  //for drawing a point through dawLine, where in X2-X1 is 0.
         sprite.setScale(length,scaleY);
         sprite.draw(batch);
-
 
     }
 
@@ -41,4 +42,50 @@ public class Geometry {
         }
         drawLine(batch,(float)vertices[0].x,(float)vertices[0].y,(float)vertices[vertices.length-1].x,(float)vertices[vertices.length-1].y,scaleY);
     }
+
+
+
+    /**
+     * Bresenham's algorithm for drawing circle
+     */
+    public static void drawCircle(PolygonSpriteBatch batch,int centerX,int centerY,int radius,int scaleY){
+        int x = 0, y = radius;
+        int d = 3 - 2 * radius;
+        while(y>=x){
+            drawCircle(batch,centerX,centerY,x,y,scaleY);
+
+        if(d<0){
+            d = d + 4 * x + 6;
+        }else{
+            y--;
+            d = d + 4 * (x - y) + 10;
+        }
+
+        x++;
+
+        drawCircle(batch,centerX,centerY,x,y,scaleY);
+        }
+    }
+
+    private static void drawPoint(PolygonSpriteBatch batch, int X1, int Y1, int scaleXY){
+        sprite.setOrigin(0,0);
+        sprite.setPosition(X1,Y1);
+        sprite.setScale(scaleXY);
+        sprite.draw(batch);
+    }
+
+    private static void drawCircle(PolygonSpriteBatch batch, int centerX, int centerY, int x, int y,int scaleXY) {
+
+        drawPoint(batch,centerX + x, centerY + y, scaleXY);
+        drawPoint(batch,centerX - x, centerY + y, scaleXY);
+        drawPoint(batch,centerX + x, centerY - y, scaleXY);
+        drawPoint(batch,centerX - x, centerY - y, scaleXY);
+
+        drawPoint(batch,centerX + y, centerY + x, scaleXY);
+        drawPoint(batch,centerX - y, centerY + x, scaleXY);
+        drawPoint(batch,centerX + y, centerY - x, scaleXY);
+        drawPoint(batch,centerX - y, centerY - x, scaleXY);
+
+    }
+
 }
