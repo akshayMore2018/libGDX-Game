@@ -39,5 +39,6 @@ public class Geometry {
         for(int i=0;i<vertices.length-1;i++){
             drawLine(batch,(float)vertices[i].x,(float)vertices[i].y,(float)vertices[i+1].x,(float)vertices[i+1].y,scaleY);
         }
+        drawLine(batch,(float)vertices[0].x,(float)vertices[0].y,(float)vertices[vertices.length-1].x,(float)vertices[vertices.length-1].y,scaleY);
     }
 }
