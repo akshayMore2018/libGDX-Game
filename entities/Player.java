@@ -1,5 +1,6 @@
 package com.mygdx.game.entities;
 
+import com.mygdx.game.components.Camera;
 import com.mygdx.game.components.Collision;
 import com.mygdx.game.components.Graphics;
 import com.mygdx.game.components.Motion;
@@ -20,6 +21,7 @@ public class Player extends Entity
         manager.addComponent(ID,new Motion(0,0));
         manager.addComponent(ID,new UserInput(this));
         manager.addComponent(ID,new Collision());
+        manager.addComponent(ID,new Camera(this,0,0));
     }
 
 }
