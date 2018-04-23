@@ -1,11 +1,16 @@
 package com.mygdx.game.world;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
+
 public class TileMap {
 
     private Tile[][] tiles;
     private int height,width;
+    public Texture tileImg;
 
     public TileMap(int width,int height){
+        tileImg = new Texture(Gdx.files.internal("towerDefense_tile024.png"));
         this.width=width;
         this.height=height;
         tiles=new Tile[width][height];
