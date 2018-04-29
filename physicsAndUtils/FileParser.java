@@ -5,41 +5,57 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 public class FileParser {
-    String filePath;
-    Scanner inFile;
-    String token="";
-    List<String> tokenList;
-    public FileParser(String path){
-        filePath=path;
-        tokenList=new ArrayList<String>();
+    private Scanner inFile;
+    private List<String> tokenList;
+    private String[][] mapIdArray;
+
+    public FileParser(String path, int xTiles, int yTiles) {
+
+        tokenList = new ArrayList<String>();
         try {
-            inFile=new Scanner(new File(filePath));
+            inFile = new Scanner(new File(path));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        mapIdArray = new String[xTiles][yTiles];
+
+        String[] temp = {"\n", ","};
+        delimiters(temp, 2);
+        parseThis();
 
     }
 
-    public void delimiters(String delArray[],int count){
-        String del="";
-        for(int i=0;i<count-1;i++) {
-            del += delArray[i] + "|";
+    private void delimiters(String delArray[], int count) {
+        StringBuffer del = new StringBuffer();
+        for (int i = 0; i < count - 1; i++) {
+            del.append(delArray[i]).append("|");
         }
-        del=del+delArray[count-1];
-        inFile.useDelimiter(del);
+        del.append(delArray[count - 1]);
+        inFile.useDelimiter(del.toString());
+
     }
-    public void parseThis(){
-        while(inFile.hasNext()){
-            token=inFile.next();
+
+    private void parseThis() {
+        String token;
+        while (inFile.hasNext()) {
+            token = inFile.next();
             tokenList.add(token);
         }
         inFile.close();
+        int count = 0;
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                mapIdArray[j][i] = tokenList.get(count++);
+            }
+        }
+
     }
 
-    public void display(){
-        for(int i=0;i<tokenList.size();i++)
-        System.out.println(tokenList.get(i));
+
+    public String getMapID(int x, int y) {
+        return mapIdArray[x][y];
     }
 
 }
