@@ -1,4 +1,4 @@
-package com.mygdx.game.physicsAndUtils;
+package com.mygdx.game2.physicsAndUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -10,7 +10,7 @@ public class FileParser {
     private Scanner inFile;
     private List<String> tokenList;
     private String[][] mapIdArray;
-
+    private int xTiles,yTiles;
     public FileParser(String path, int xTiles, int yTiles) {
 
         tokenList = new ArrayList<String>();
@@ -19,6 +19,9 @@ public class FileParser {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
+        this.xTiles=xTiles;
+        this.yTiles=yTiles;
         mapIdArray = new String[xTiles][yTiles];
 
         String[] temp = {"\n", ","};
@@ -45,8 +48,8 @@ public class FileParser {
         }
         inFile.close();
         int count = 0;
-        for (int i = 0; i < 10; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < xTiles; i++) {
+            for (int j = 0; j < yTiles; j++) {
                 mapIdArray[j][i] = tokenList.get(count++);
             }
         }
