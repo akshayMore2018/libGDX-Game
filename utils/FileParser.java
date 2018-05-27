@@ -1,4 +1,3 @@
-package com.mygdx.game2.physicsAndUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
