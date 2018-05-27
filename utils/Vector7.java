@@ -1,5 +1,3 @@
-package com.mygdx.game.physicsAndUtils;
-
 
 public class Vector7
 {
